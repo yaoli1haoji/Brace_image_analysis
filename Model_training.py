@@ -290,13 +290,12 @@ validation_datagen = my_image_mask_generator(valid_img_generator, valid_mask_gen
 print("compile completed")
 print(model.summary())
 
-#print("compile completed")
-#print(model.summary())
 print("Num GPUs Available: ", len(tf.config.list_physical_devices('GPU')))
 
-#now = datetime.now()
-#current_time = now.strftime("%H:%M:%S")
-#print("Current Time =", current_time)
+#print training start time
+now = datetime.now()
+current_time = now.strftime("%H:%M:%S")
+print("Current Time =", current_time)
 
 history = model.fit(my_generator,
                     batch_size=batchsize,
@@ -328,21 +327,20 @@ history = model.fit(my_generator,
                     #callbacks=model_checkpoint_callback,
                     #shuffle=False)
 
-#now = datetime.now()
-#current_time = now.strftime("%H:%M:%S")
-#print("Current Time =", current_time)
+#print training end time 
+now = datetime.now()
+current_time = now.strftime("%H:%M:%S")
+print("Current Time =", current_time)
 
-
+#save model weight after training 
 save_name = "Simple_Unet_model_" + str(epoch) + "_epoch_" + "final_weight_" + str(Date_name) + "_" + str(batchsize) + "_batch_size_" + str(initial_learning_rate) + "_LR_Decay_gpu.hdf5"
 model.save(save_name)
-#model.save('sandstone_50_epochs_catXentropy_acc_with_weights.hdf5')
 
-model.load_weights('/home/hl46161/PycharmProjects/machine_learning_image_recongization/Simple_Unet_model_100_epoch_best_save_with_sample_weight_May_22th_32_batch_size_0.001_LR_Decay_gpu.hdf5')
+#model.load_weights('/home/hl46161/PycharmProjects/machine_learning_image_recongization/Simple_Unet_model_100_epoch_best_save_with_sample_weight_May_22th_32_batch_size_0.001_LR_Decay_gpu.hdf5')
+#model.load_weights('/home/hl46161/PycharmProjects/machine_learning_image_recongization/Simple_Unet_model_200_epoch_best_save_with_sample_weight_May_22th_64_batch_size_0.005_LR_Decay_gpu.hdf5')
+#model.load_weights('/home/hl46161/PycharmProjects/machine_learning_image_recongization/Simple_Unet_model_200_epoch_best_save_with_sample_weight_May_22th_64_batch_size_0.0005_LR_Decay_gpu.hdf5')
 
-model.load_weights('/home/hl46161/PycharmProjects/machine_learning_image_recongization/Simple_Unet_model_200_epoch_best_save_with_sample_weight_May_22th_64_batch_size_0.005_LR_Decay_gpu.hdf5')
-
-model.load_weights('/home/hl46161/PycharmProjects/machine_learning_image_recongization/Simple_Unet_model_200_epoch_best_save_with_sample_weight_May_22th_64_batch_size_0.0005_LR_Decay_gpu.hdf5')
-
+#load previsou optimized weight for prediction 
 model.load_weights('/home/hl46161/PycharmProjects/machine_learning_image_recongization/Simple_Unet_model_200_epoch_best_save_with_sample_weight_June_6th_32_batch_size_0.0001_LR_Decay_gpu.hdf5')
 
 #use model to predict validation dataset
